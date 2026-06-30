@@ -1,0 +1,21 @@
+{
+  "name": "northwind-admin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter @northwind-admin/api dev",
+    "dev:web": "pnpm --filter @northwind-admin/web dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:api": "pnpm --filter @northwind-admin/api test",
+    "db:inspect": "pnpm --filter @northwind-admin/api db:inspect"
+  },
+  "devDependencies": {
+    "@types/node": "26.0.1",
+    "typescript": "6.0.3"
+  }
+}
