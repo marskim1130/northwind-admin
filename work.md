@@ -1,0 +1,25 @@
+# work.md
+
+2026-06-30 16:40:02 +08:00 --- 发现 MVP 边界 [MVP Boundary] 在 P0 范围与最终验收优先级之间存在范围不一致 --- 使用 `grill-with-docs` 澄清并按推荐答案固化为项目词汇表 [Project Glossary] --- 修改了 `CONTEXT.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `CONTEXT.md`，并从 `work.md` 删除本条记录；若 `work.md` 仅包含本条记录，可直接删除 `work.md`。
+
+2026-06-30 16:41:53 +08:00 --- 发现“管理系统 [Admin System]”可能被误解为包含新增、编辑、删除 [CRUD]，但 MVP 验收标准 [Acceptance Criteria] 只要求关键读路径 [Critical Read Paths] --- 使用 `grill-with-docs` 澄清并固化“只读 MVP [Read-only MVP]”术语 --- 修改了 `CONTEXT.md`、`work.md`。撤回方式 [Rollback Strategy]：从 `CONTEXT.md` 删除“只读 MVP [Read-only MVP]”小节，并从 `work.md` 删除本条记录。
+
+2026-06-30 16:48:05 +08:00 --- 发现 Drizzle schema 与既有 Northwind PostgreSQL 表之间需要明确所有权边界 [Schema Ownership Boundary]，否则未来可能误执行破坏性迁移 [Destructive Migrations] --- 使用 ADR [Architecture Decision Record] 记录数据库优先 [Database-first] 决策，并创建 `docs/adr/` 目录；2026-06-30 16:48:29 +08:00 按全局沟通规则 [Global Communication Rules] 将 ADR 文本修正为中文双语对照 [Bilingual Mapping] --- 修改了 `docs/adr/0001-database-first-northwind-schema.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0001-database-first-northwind-schema.md`；若 `docs/adr/` 为空，可删除该目录；并从 `work.md` 删除本条记录。
+
+2026-06-30 16:52:09 +08:00 --- 发现 Products、Customers、Orders 等页面需要关联名称、金额合计、订单状态 [Order Status] 等派生数据 [Derived Data]，必须明确前后端聚合边界 [Aggregation Boundary] --- 使用 ADR [Architecture Decision Record] 记录后端聚合读取 DTO [Backend-aggregated Read DTOs] 决策 --- 修改了 `docs/adr/0002-backend-aggregates-read-dtos.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0002-backend-aggregates-read-dtos.md`，并从 `work.md` 删除本条记录。
+
+2026-06-30 16:53:25 +08:00 --- 发现 Auth 在原始需求中属于 P1，但路由与系统表设计可能让 MVP 范围 [MVP Scope] 膨胀到真实认证 [Real Authentication] --- 使用 ADR [Architecture Decision Record] 记录本轮延后真实认证 [Defer Real Authentication]，仅保留前端占位骨架 [Placeholder Skeleton] --- 修改了 `docs/adr/0003-defer-real-authentication-for-mvp.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0003-defer-real-authentication-for-mvp.md`，并从 `work.md` 删除本条记录。
+
+2026-06-30 16:56:39 +08:00 --- 发现“完整项目 [Complete Project]”可能被理解为一次性实现全量模块，也可能被理解为完整骨架 [Project Skeleton] 加可运行闭环 [Runnable Slice] --- 使用 ADR [Architecture Decision Record] 记录采用完整工程骨架 [Project Skeleton] 加 MVP 闭环实现 [MVP Runnable Slice] 的交付方式 --- 修改了 `docs/adr/0004-project-skeleton-with-mvp-runnable-slice.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0004-project-skeleton-with-mvp-runnable-slice.md`，并从 `work.md` 删除本条记录。
+
+2026-06-30 17:10:59 +08:00 --- 发现附件 schema [Target Schema] 与真实 PostgreSQL Northwind 数据库可能存在类型差异 [Type Differences]、大小写差异 [Case Differences] 或字段差异 [Field Differences] --- 确认后续实现增加只读数据库检查脚本 [Read-only Database Inspection Script]，仅查询 `information_schema`，不修改数据库；该决策可逆且不创建 ADR [Architecture Decision Record] --- 修改了 `work.md`。撤回方式 [Rollback Strategy]：从 `work.md` 删除本条记录。
+
+2026-06-30 17:14:46 +08:00 --- 发现金额字段 [Money Fields] 在 API 中若返回数字可能受 JavaScript 浮点精度问题 [Floating Point Precision] 影响，但图表 [Charts] 又需要数值输入 --- 使用 ADR [Architecture Decision Record] 记录金额字段统一返回固定两位小数字符串 [Fixed 2-decimal String]，图表适配层 [Chart Adapter] 显式转换为数字 --- 修改了 `docs/adr/0005-money-fields-as-fixed-decimal-strings.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0005-money-fields-as-fixed-decimal-strings.md`，并从 `work.md` 删除本条记录。
+
+2026-06-30 17:17:22 +08:00 --- 发现“所有列表支持搜索 [Search]、筛选 [Filtering]、排序 [Sorting]”缺少字段级搜索语义 [Field-level Search Semantics]，可能导致前后端对 keyword 含义理解不一致 --- 确认 MVP 采用轻量关键词搜索 [Lightweight Keyword Search]：Products 搜 `product_name`，Customers 搜 `company_name` 与 `contact_name`，Orders 对 `order_id` 精确匹配 [Exact Match] 或对客户公司名 [Customer Company Name] 模糊匹配 [Partial Match]，Reports 不提供 keyword；排序字段使用后端白名单 [Backend Allowlist] --- 修改了 `work.md`。撤回方式 [Rollback Strategy]：从 `work.md` 删除本条记录。
+
+2026-06-30 17:22:20 +08:00 --- 发现 `packages/shared` 若共享过度，会把 Drizzle schema、数据库字段名 [Database Field Names] 或服务层内部类型 [Service Internal Types] 泄漏给前端，破坏 API 契约边界 [API Contract Boundary] --- 使用 ADR [Architecture Decision Record] 记录 shared 包只包含 API 契约类型 [API Contract Types]、统一响应类型 [Shared Response Types]、分页类型 [Pagination Types] 与纯工具类型 [Pure Utility Types]，并统一使用 camelCase --- 修改了 `docs/adr/0006-shared-package-contains-api-contract-types-only.md`、`work.md`。撤回方式 [Rollback Strategy]：删除 `docs/adr/0006-shared-package-contains-api-contract-types-only.md`，并从 `work.md` 删除本条记录。
+
+2026-06-30 17:24:40 +08:00 --- 发现 MVP 若完全不写测试 [Tests] 会让金额计算 [Money Calculation]、订单状态推导 [Order Status Derivation] 与统一响应格式 [Response Shape] 缺少保护，但完整前端组件测试 [Component Tests] 会拖慢最小可运行后台 [Runnable MVP Admin] 搭建 --- 确认 MVP 配置测试工具 [Testing Tools]，只写后端关键测试 [Critical Backend Tests]：健康检查 [Health Check]、响应格式 [Response Shape]、金额计算 [Money Calculation]、订单状态推导 [Order Status Derivation]；前端暂不写组件测试 [Component Tests]，依赖 TypeScript strict 与手动验收 [Manual Acceptance] --- 修改了 `work.md`。撤回方式 [Rollback Strategy]：从 `work.md` 删除本条记录。
+
+2026-06-30 17:25:18 +08:00 --- 发现后台管理系统 [Admin System] 若采用营销站式大卡片 [Marketing-style Cards] 或装饰性界面，会降低表格扫描 [Table Scanning] 与重复操作 [Repeated Actions] 效率 --- 确认前端采用工作台式紧凑布局 [Compact Workbench Layout]：以表格 [Tables]、筛选栏 [Filter Bar]、分页 [Pagination] 与详情页 [Detail Page] 为主，Dashboard 可使用统计卡片 [Metric Cards] 与图表 [Charts]，整体保持安静、清晰、高信息密度 [High Information Density] --- 修改了 `work.md`。撤回方式 [Rollback Strategy]：从 `work.md` 删除本条记录。
