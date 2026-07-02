@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import { fileURLToPath } from "node:url";
 
-const workspaceEnvPath = fileURLToPath(new URL("../../../.env", import.meta.url));
+const workspaceEnvPath = fileURLToPath(new URL("../../../../.env", import.meta.url));
 
 export function loadEnv() {
   config({ path: workspaceEnvPath });

@@ -1,6 +1,6 @@
 import postgres from "postgres";
-import { summarizeInspection } from "../src/db-inspection";
-import { loadEnv } from "../src/env";
+import { loadEnv } from "../src/config/env";
+import { summarizeInspection } from "../src/infrastructure/db-inspection";
 
 loadEnv();
 

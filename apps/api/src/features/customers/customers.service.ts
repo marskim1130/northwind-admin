@@ -1,4 +1,4 @@
-import { getDb } from "./db";
+import { getDb } from "../../infrastructure/db";
 
 export const customerSortByFields = [
   "customerId",

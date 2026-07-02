@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { loadEnv } from "./env";
+import { loadEnv } from "../config/env";
 
 type DatabaseClient = ReturnType<typeof postgres>;
 

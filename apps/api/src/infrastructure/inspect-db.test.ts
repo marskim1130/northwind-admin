@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-const apiRoot = fileURLToPath(new URL("..", import.meta.url));
+const apiRoot = fileURLToPath(new URL("../..", import.meta.url));
 const pnpmCli = process.env.npm_execpath;
 
 describe("只读数据库检查 [Read-only Database Inspection]", () => {

@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, it } from "vitest";
-import { createApp } from "./app";
-import { closeDb } from "./db";
+import { createApp } from "../../app";
+import { closeDb } from "../../infrastructure/db";
 
 describe("Customers 客户读路径 [Customers Read Path]", () => {
   afterAll(async () => {

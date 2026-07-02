@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import { createApp } from "./app";
-import { loadEnv } from "./env";
+import { loadEnv } from "./config/env";
 
 loadEnv();
 

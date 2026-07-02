@@ -6,14 +6,14 @@ import {
   isCustomerSortBy,
   listCustomerOrders,
   listCustomers
-} from "./customers.service";
+} from "./features/customers/customers.service";
 import {
   getProductById,
   isProductSortBy,
   listProducts,
   productSortByFields
-} from "./products.service";
-import { fail, ok } from "./response";
+} from "./features/products/products.service";
+import { fail, ok } from "./http/response";
 
 export function createApp() {
   const app = new Hono();
