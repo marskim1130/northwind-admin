@@ -1,8 +1,8 @@
 import { serve } from "@hono/node-server";
-import { config } from "dotenv";
 import { createApp } from "./app";
+import { loadEnv } from "./env";
 
-config();
+loadEnv();
 
 const port = Number.parseInt(process.env.API_PORT ?? "3000", 10);
 const app = createApp();
