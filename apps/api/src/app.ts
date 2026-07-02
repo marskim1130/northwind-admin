@@ -7,6 +7,7 @@ import {
   listCustomerOrders,
   listCustomers
 } from "./features/customers/customers.service";
+import { listOrders } from "./features/orders/orders.service";
 import {
   getProductById,
   isProductSortBy,
@@ -19,6 +20,18 @@ export function createApp() {
   const app = new Hono();
 
   app.get("/api/health", (c) => c.json(ok<HealthCheckData>({ status: "OK" })));
+
+  app.get("/api/orders", async (c) =>
+    c.json(
+      ok(
+        await listOrders({
+          page: Number(c.req.query("page") ?? 1),
+          pageSize: Number(c.req.query("pageSize") ?? 20),
+          keyword: c.req.query("keyword")
+        })
+      )
+    )
+  );
 
   app.get("/api/customers", async (c) => {
     const sortBy = c.req.query("sortBy");
